@@ -1,1 +1,1 @@
-export PATH=/mongo/mongo3.6/bin:$PATH
+export PATH=~/mongo/mongodb-linux-x86_64-amazon-3.6.1/bin:$PATH
