@@ -2,7 +2,7 @@
 
   - name: making relevant directory
     become: true
-    become_user: ec2-user
+    become_user: "{{ remoteuser }}"
     become_method: sudo
     file:
      path: "{{ item }}"
@@ -14,7 +14,7 @@
 
   - name: extract archive file into ~/mongo
     become: true
-    become_user: ec2-user
+    become_user: "{{ remoteuser }}"
     become_method: sudo
     unarchive:
       src: "{{ mongourl }}"
@@ -23,7 +23,7 @@
       remote_src: yes    
      
   - name: insert/update configuration using a local file
-    become_user: ec2-user
+    become_user: "{{ remoteuser }}"
     blockinfile:
       block: "{{ lookup('file', '../files/bashrc.txt') }}"
       dest: "~/.bashrc"

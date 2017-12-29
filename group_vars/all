@@ -1,1 +1,2 @@
 mongourl: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-amazon-3.6.1.tgz
+remoteuser: ec2-user
