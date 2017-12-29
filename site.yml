@@ -1,0 +1,9 @@
+---
+- name: mongodb 3.6 setup in amazon ami 
+  hosts: all
+  become: true
+
+  roles:
+
+     - mongodb
+   

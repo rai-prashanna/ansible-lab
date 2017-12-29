@@ -1,0 +1,47 @@
+---
+
+#  - name: Download tar file from remote url
+#    command: curl -o https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-amazon-3.6.1.tgz
+
+  - name: making relevant directory
+    become: true
+    become_user: vagrant
+    become_method: sudo
+    file:
+     path: "{{ item }}"
+     state: directory
+     mode: 0777
+    with_items:
+    - ~/mongo/monogdata
+    - ~/mongo/monogLog
+    - ~/mongo/mongo3.6
+
+  - name: extract archive file into workspace
+    become: true
+    become_user: vagrant
+    become_method: sudo
+    unarchive:
+      src: "{{ mongourl }}"
+      dest: ~/mongo
+      mode: 0777
+      remote_src: yes 
+      
+  - name: copy mongo files to mongo folder 
+    become: true
+    become_user: vagrant
+    become_method: sudo    
+    copy:
+     src: ~/mongo/mongodb*
+     dest: ~/mongo/mongo3.6    
+     
+  - name: insert/update configuration using a local file
+    become_user: vagrant
+    blockinfile:
+      block: "{{ lookup('file', '../files/bashrc.txt') }}"
+      dest: "~/.bashrc"
+      backup: yes
+      marker: "# {mark} ANSIBLE MANAGED BLOCK "
+      insertafter: "EOF"   
+
+
+  

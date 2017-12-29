@@ -1,0 +1,1 @@
+export PATH=/mongo/mongo3.6/bin:$PATH
